@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import remarkBreaks from 'remark-breaks'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import { getMarkdownByCode } from '@/lib/markdown'
@@ -203,7 +204,7 @@ export default async function ViewPage({ params, searchParams }: PageProps) {
             noHeader ? 'p-3 sm:p-4 md:p-6' : 'p-4 sm:p-6 md:p-8'
           }`}>
             <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
+              remarkPlugins={[remarkGfm, remarkBreaks]}
               components={{
                 code(props) {
                   const { children, className } = props

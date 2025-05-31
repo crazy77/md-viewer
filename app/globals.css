@@ -46,6 +46,13 @@
     line-height: 1.7;
   }
   
+  /* 줄넘김 처리 개선 */
+  .markdown-content br {
+    /* display: block; */
+    margin: 0.5em 0;
+    content: "";
+  }
+  
   /* 모바일에서 마크다운 컨텐츠 최적화 */
   @media (max-width: 640px) {
     .markdown-content {
@@ -210,17 +217,20 @@
   /* 리스트 스타일 */
   .markdown-content ul {
     @apply space-y-2 sm:space-y-1 md:space-y-2;
+    list-style: none; /* 기본 불릿 포인트 제거 */
+    padding-inline-start: 0;
   }
   
   .markdown-content ul > li {
-    @apply relative pl-8 sm:pl-6 md:pl-8;
+    @apply relative pl-5 sm:pl-4 md:pl-5;
+    list-style: none; /* 기본 불릿 포인트 제거 */
   }
   
   .markdown-content ul > li::before {
     content: '●';
     position: absolute;
-    left: 1rem;
-    @apply sm:left-3 md:left-4;
+    left: 0.5rem;
+    @apply sm:left-2 md:left-2;
     color: #3b82f6;
     @apply dark:text-blue-400;
     font-weight: bold;
@@ -228,10 +238,46 @@
   
   .markdown-content ol {
     @apply space-y-2 sm:space-y-1 md:space-y-2;
+    list-style: none; /* 기본 번호 매기기 제거 */
+    counter-reset: list-counter; /* 커스텀 카운터 초기화 */
+    padding-inline-start: 0;
   }
   
   .markdown-content ol > li {
-    @apply relative pl-8 sm:pl-6 md:pl-8;
+    @apply relative pl-6 sm:pl-5 md:pl-6;
+    list-style: none; /* 기본 번호 매기기 제거 */
+    counter-increment: list-counter; /* 카운터 증가 */
+  }
+  
+  .markdown-content ol > li::before {
+    content: counter(list-counter) '.';
+    position: absolute;
+    left: 0;
+    @apply sm:left-0 md:left-0;
+    color: #3b82f6;
+    @apply dark:text-blue-400;
+    font-weight: bold;
+    min-width: 1.5rem;
+  }
+  
+  /* 중첩된 목록 스타일 */
+  .markdown-content ul ul,
+  .markdown-content ol ol,
+  .markdown-content ul ol,
+  .markdown-content ol ul {
+    @apply mt-2 mb-2;
+  }
+  
+  .markdown-content ul ul > li::before {
+    content: '◦';
+    color: #6b7280;
+    @apply dark:text-gray-400;
+  }
+  
+  .markdown-content ul ul ul > li::before {
+    content: '▪';
+    color: #9ca3af;
+    @apply dark:text-gray-500;
   }
   
   /* 체크박스 스타일 */
@@ -376,6 +422,7 @@
     @apply mb-6 sm:mb-4 md:mb-6 leading-relaxed;
     color: #374151;
     @apply dark:text-gray-300;
+    white-space: pre-wrap; /* 줄넘김과 공백을 보존 */
   }
   
   /* 이미지 */
