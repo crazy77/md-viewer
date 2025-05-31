@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 기본 스타일링 */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+}
+
+/* 마크다운 스타일 커스터마이징 */
+@layer components {
+  .markdown-content {
+    @apply prose prose-gray max-w-none;
+  }
+  
+  .markdown-content h1 {
+    @apply text-3xl font-bold mb-6 pb-2 border-b border-gray-200;
+  }
+  
+  .markdown-content h2 {
+    @apply text-2xl font-semibold mb-4 mt-8;
+  }
+  
+  .markdown-content h3 {
+    @apply text-xl font-medium mb-3 mt-6;
+  }
+  
+  .markdown-content code {
+    @apply bg-gray-100 px-1 py-0.5 rounded text-sm;
+  }
+  
+  .markdown-content pre {
+    @apply bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto;
+  }
+  
+  .markdown-content blockquote {
+    @apply border-l-4 border-blue-500 pl-4 italic text-gray-600;
+  }
+} 
