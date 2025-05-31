@@ -4,6 +4,21 @@ import ThemeToggle from '@/components/ThemeToggle'
 import { Metadata } from 'next'
 import Image from 'next/image'
 
+// 절대 URL 생성 헬퍼 함수
+function getAbsoluteUrl(path: string): string {
+  // 환경변수에서 사이트 URL 가져오기
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.VERCEL_URL
+  
+  if (siteUrl) {
+    // 프로토콜이 없으면 https 추가
+    const baseUrl = siteUrl.startsWith('http') ? siteUrl : `https://${siteUrl}`
+    return `${baseUrl}${path}`
+  }
+  
+  // fallback: 상대 경로 그대로 반환 (Next.js가 자동으로 처리)
+  return path
+}
+
 export const metadata: Metadata = {
   title: 'Markdown Viewer | 마크다운 문서 뷰어',
   description: '마크다운 파일을 아름다운 웹페이지로 읽어보세요. 간편하고 직관적인 마크다운 문서 뷰어입니다.',
@@ -13,7 +28,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/images/md-viewer.png',
+        url: getAbsoluteUrl('/images/md-viewer.png'),
         width: 1200,
         height: 630,
         alt: 'Markdown Viewer',
@@ -24,6 +39,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Markdown Viewer | 마크다운 문서 뷰어',
     description: '마크다운 파일을 아름다운 웹페이지로 읽어보세요.',
+    images: [getAbsoluteUrl('/images/md-viewer.png')],
   },
   keywords: [
     'markdown',

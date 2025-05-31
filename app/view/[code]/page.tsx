@@ -14,6 +14,21 @@ interface PageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
+// 절대 URL 생성 헬퍼 함수
+function getAbsoluteUrl(path: string): string {
+  // 환경변수에서 사이트 URL 가져오기
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.VERCEL_URL
+  
+  if (siteUrl) {
+    // 프로토콜이 없으면 https 추가
+    const baseUrl = siteUrl.startsWith('http') ? siteUrl : `https://${siteUrl}`
+    return `${baseUrl}${path}`
+  }
+  
+  // fallback: 상대 경로 그대로 반환 (Next.js가 자동으로 처리)
+  return path
+}
+
 // 동적 메타데이터 생성
 export async function generateMetadata({ params }: { params: Promise<{ code: string }> }): Promise<Metadata> {
   const { code } = await params
@@ -26,17 +41,14 @@ export async function generateMetadata({ params }: { params: Promise<{ code: str
     }
   }
 
-  const title = `${markdown.title} | Markdown Viewer`
+  const title = `${markdown.title}`
   const description = markdown.description || `${markdown.title}에 대한 마크다운 문서입니다.`
   
   // 이미지가 있으면 소셜 이미지로 사용, 없으면 기본 이미지 사용
-  const ogImage = markdown.image ? {
-    url: markdown.image,
-    width: 1200,
-    height: 630,
-    alt: markdown.title,
-  } : {
-    url: '/images/md-viewer.png',
+  const imageUrl = markdown.image ? getAbsoluteUrl(markdown.image) : getAbsoluteUrl('/images/md-viewer.jpeg')
+  
+  const ogImage = {
+    url: imageUrl,
     width: 1200,
     height: 630,
     alt: markdown.title,
@@ -55,7 +67,7 @@ export async function generateMetadata({ params }: { params: Promise<{ code: str
       card: 'summary_large_image',
       title,
       description,
-      images: markdown.image ? [markdown.image] : undefined,
+      images: [imageUrl],
     },
     keywords: [
       'markdown',

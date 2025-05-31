@@ -130,6 +130,24 @@ code: "unique-code"         # 선택사항 (URL에 사용, 없으면 파일명 �
 
 ## 🚀 배포
 
+### 환경변수 설정
+
+OpenGraph 이미지가 올바른 절대 URL로 생성되도록 하려면 환경변수를 설정하세요:
+
+```bash
+# .env.local 파일 생성
+NEXT_PUBLIC_SITE_URL=https://your-domain.com
+
+# 예시:
+# NEXT_PUBLIC_SITE_URL=https://markdown-viewer.vercel.app
+# NEXT_PUBLIC_SITE_URL=https://mydocs.netlify.app
+```
+
+**중요**: 
+- Vercel 배포 시에는 `VERCEL_URL`이 자동으로 설정되므로 별도 설정이 불필요합니다
+- 다른 플랫폼 배포 시에는 `NEXT_PUBLIC_SITE_URL`을 실제 도메인으로 설정하세요
+- 환경변수를 설정하지 않으면 상대 경로가 사용되어 소셜 미디어에서 이미지가 표시되지 않을 수 있습니다
+
 ### Vercel 배포
 
 1. GitHub에 프로젝트 업로드
