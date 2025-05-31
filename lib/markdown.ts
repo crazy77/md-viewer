@@ -6,6 +6,7 @@ export interface MarkdownFile {
   code: string
   title: string
   description?: string
+  image?: string
   filename: string
   lastModified: string
   content: string
@@ -37,6 +38,7 @@ export async function getMarkdownFiles(): Promise<Omit<MarkdownFile, 'content'>[
           code: data.code || filename.replace('.md', ''),
           title: data.title || filename.replace('.md', ''),
           description: data.description,
+          image: data.image,
           filename,
           lastModified: stats.mtime.toLocaleDateString('ko-KR'),
           slug: filename.replace('.md', ''),
@@ -75,6 +77,7 @@ export async function getMarkdownByCode(code: string): Promise<MarkdownFile | nu
           code: fileCode,
           title: data.title || filename.replace('.md', ''),
           description: data.description,
+          image: data.image,
           filename,
           lastModified: stats.mtime.toLocaleDateString('ko-KR'),
           content,
@@ -107,6 +110,7 @@ export async function getMarkdownBySlug(slug: string): Promise<MarkdownFile | nu
       code: data.code || slug,
       title: data.title || slug,
       description: data.description,
+      image: data.image,
       filename: `${slug}.md`,
       lastModified: stats.mtime.toLocaleDateString('ko-KR'),
       content,

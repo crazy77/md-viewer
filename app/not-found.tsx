@@ -1,5 +1,15 @@
 import Link from 'next/link'
+import { Metadata } from 'next'
 import ThemeToggle from '@/components/ThemeToggle'
+
+export const metadata: Metadata = {
+  title: '페이지를 찾을 수 없습니다 | Markdown Viewer',
+  description: '요청하신 페이지를 찾을 수 없습니다. 홈페이지로 돌아가서 다른 마크다운 문서를 탐색해보세요.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+}
 
 export default function NotFound() {
   return (

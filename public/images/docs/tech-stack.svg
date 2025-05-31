@@ -1,0 +1,81 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 배경 그라데이션 -->
+  <defs>
+    <linearGradient id="techBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2D3748;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1A202C;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="techAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#4FD1C7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06B6D4;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 배경 -->
+  <rect width="1200" height="630" fill="url(#techBg)"/>
+  
+  <!-- 장식 격자 패턴 -->
+  <defs>
+    <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  
+  <!-- 메인 제목 -->
+  <text x="600" y="150" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="42" font-weight="bold">
+    🚀 Tech Stack
+  </text>
+  
+  <!-- 기술 스택 카드들 -->
+  <!-- Next.js -->
+  <rect x="150" y="220" width="200" height="120" fill="rgba(255,255,255,0.1)" rx="12"/>
+  <text x="250" y="260" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="28">⚛️</text>
+  <text x="250" y="290" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold">Next.js 15</text>
+  <text x="250" y="315" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-family="Arial, sans-serif" font-size="12">React Framework</text>
+  
+  <!-- TypeScript -->
+  <rect x="400" y="220" width="200" height="120" fill="rgba(255,255,255,0.1)" rx="12"/>
+  <text x="500" y="260" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="28">📘</text>
+  <text x="500" y="290" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold">TypeScript</text>
+  <text x="500" y="315" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-family="Arial, sans-serif" font-size="12">Type Safety</text>
+  
+  <!-- Tailwind CSS -->
+  <rect x="650" y="220" width="200" height="120" fill="rgba(255,255,255,0.1)" rx="12"/>
+  <text x="750" y="260" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="28">🎨</text>
+  <text x="750" y="290" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold">Tailwind CSS</text>
+  <text x="750" y="315" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-family="Arial, sans-serif" font-size="12">Styling</text>
+  
+  <!-- Markdown -->
+  <rect x="900" y="220" width="200" height="120" fill="rgba(255,255,255,0.1)" rx="12"/>
+  <text x="1000" y="260" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="28">📝</text>
+  <text x="1000" y="290" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold">Markdown</text>
+  <text x="1000" y="315" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-family="Arial, sans-serif" font-size="12">Documentation</text>
+  
+  <!-- 두 번째 줄 -->
+  <!-- Gray Matter -->
+  <rect x="275" y="380" width="200" height="120" fill="rgba(255,255,255,0.1)" rx="12"/>
+  <text x="375" y="420" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="28">📄</text>
+  <text x="375" y="450" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold">Gray Matter</text>
+  <text x="375" y="475" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-family="Arial, sans-serif" font-size="12">Frontmatter</text>
+  
+  <!-- React Markdown -->
+  <rect x="525" y="380" width="200" height="120" fill="rgba(255,255,255,0.1)" rx="12"/>
+  <text x="625" y="420" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="28">🔧</text>
+  <text x="625" y="450" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold">React Markdown</text>
+  <text x="625" y="475" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-family="Arial, sans-serif" font-size="12">Rendering</text>
+  
+  <!-- Jotai -->
+  <rect x="775" y="380" width="200" height="120" fill="rgba(255,255,255,0.1)" rx="12"/>
+  <text x="875" y="420" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="28">⚛️</text>
+  <text x="875" y="450" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold">Jotai</text>
+  <text x="875" y="475" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-family="Arial, sans-serif" font-size="12">State Management</text>
+  
+  <!-- 장식 선 -->
+  <rect x="400" y="550" width="400" height="3" fill="url(#techAccent)" rx="2"/>
+  
+  <!-- 하단 텍스트 -->
+  <text x="600" y="590" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-family="Arial, sans-serif" font-size="16">
+    Modern • Scalable • Maintainable
+  </text>
+</svg> 

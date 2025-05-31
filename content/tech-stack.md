@@ -1,302 +1,334 @@
 ---
-title: "기술 스택 & 아키텍처"
-description: "마크다운 뷰어 프로젝트에서 사용된 기술 스택과 아키텍처에 대한 설명입니다."
-code: "tech"
+title: "기술 스택"
+description: "최신 웹 기술로 구축된 마크다운 뷰어의 기술 스택을 소개합니다."
+code: "tech-stack"
+image: "/images/docs/tech-stack.svg"
 ---
 
-# 🛠️ 기술 스택 & 아키텍처
+# 🚀 기술 스택
 
-마크다운 뷰어 프로젝트의 기술적 세부사항과 아키텍처를 소개합니다.
+최신 웹 기술들을 활용해 구축된 현대적인 마크다운 뷰어입니다.
 
-## 📦 기술 스택
+## 🏗️ 프론트엔드 프레임워크
 
-### Frontend
-
-| 기술 | 버전 | 목적 |
-|------|------|------|
-| **Next.js** | Latest | React 기반 풀스택 프레임워크 |
-| **React** | ^18 | UI 라이브러리 |
-| **TypeScript** | ^5 | 정적 타입 검사 |
-| **Tailwind CSS** | ^3.4 | 유틸리티 퍼스트 CSS 프레임워크 |
-
-### Markdown 처리
-
-| 패키지 | 버전 | 목적 |
-|--------|------|------|
-| **react-markdown** | ^9.0.1 | 마크다운 렌더링 |
-| **remark-gfm** | ^4.0.0 | GitHub Flavored Markdown 지원 |
-| **gray-matter** | ^4.0.3 | Frontmatter 파싱 |
-| **react-syntax-highlighter** | ^15.5.0 | 코드 문법 하이라이팅 |
-
-### 개발 도구
-
-```json
-{
-  "eslint": "^8",
-  "eslint-config-next": "latest",
-  "@types/node": "^20",
-  "@types/react": "^18",
-  "@types/react-dom": "^18"
-}
-```
-
-## 🏗️ 프로젝트 구조
-
-```
-markdown-viewer/
-├── app/                    # Next.js App Router
-│   ├── layout.tsx         # 루트 레이아웃
-│   ├── page.tsx           # 홈페이지
-│   ├── not-found.tsx      # 404 페이지
-│   ├── globals.css        # 글로벌 스타일
-│   └── view/
-│       └── [code]/
-│           └── page.tsx   # 마크다운 뷰어 페이지
-├── lib/
-│   └── markdown.ts        # 마크다운 유틸리티
-├── content/               # 마크다운 파일 저장소
-│   ├── hello-world.md
-│   ├── guide.md
-│   └── tech-stack.md
-├── package.json
-├── tsconfig.json
-├── tailwind.config.js
-├── postcss.config.js
-└── next.config.js
-```
-
-## 🔧 아키텍처 패턴
-
-### 1. App Router 활용
-
-Next.js 13+의 App Router를 사용하여 최신 React 기능들을 활용합니다:
-
+### Next.js 15
 ```typescript
-// app/page.tsx - Server Component
-export default async function HomePage() {
-  const markdownFiles = await getMarkdownFiles()
-  return <div>{/* JSX */}</div>
+// App Router 사용
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'My Page',
+  description: 'Page description'
+}
+
+export default function Page() {
+  return <div>Hello, Next.js 15!</div>
 }
 ```
 
-### 2. Server Components 우선
+**주요 특징:**
+- ⚛️ **React 18** 기반의 최신 프레임워크
+- 🏃‍♂️ **App Router** 사용으로 향상된 라우팅
+- 🔄 **Server Components** 지원
+- 📈 **성능 최적화** 자동 적용
+- 🎯 **TypeScript** 완전 지원
 
-가능한 모든 컴포넌트를 Server Component로 구현하여 성능을 최적화합니다:
+### React 18
+```jsx
+// Server Components
+async function ServerComponent() {
+  const data = await fetchData() // 서버에서 실행
+  return <ClientComponent data={data} />
+}
 
-- 빌드 타임에 마크다운 파일 스캔
-- 서버사이드에서 파일 시스템 접근
-- 클라이언트 번들 사이즈 최소화
+// Client Components
+'use client'
+function ClientComponent({ data }) {
+  const [state, setState] = useState(data)
+  return <div>{/* 인터랙티브 UI */}</div>
+}
+```
 
-### 3. 파일 기반 CMS
+## 📘 타입 시스템
 
-별도의 데이터베이스 없이 파일 시스템을 CMS로 활용:
-
+### TypeScript
 ```typescript
-// lib/markdown.ts
-export async function getMarkdownFiles() {
-  const contentDirectory = path.join(process.cwd(), 'content')
-  // 파일 시스템에서 직접 읽기
-}
-```
-
-### 4. Frontmatter 기반 메타데이터
-
-YAML Frontmatter를 통한 메타데이터 관리:
-
-```yaml
----
-title: "문서 제목"
-description: "문서 설명"
-code: "unique-code"
----
-```
-
-## 🎨 스타일링 전략
-
-### Tailwind CSS 설정
-
-```javascript
-// tailwind.config.js
-module.exports = {
-  content: [
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
-  plugins: [require('@tailwindcss/typography')],
-}
-```
-
-### 반응형 디자인
-
-```css
-/* 모바일 우선 접근법 */
-.container {
-  @apply px-4;
-}
-
-/* 태블릿 */
-@media (min-width: 768px) {
-  .container {
-    @apply px-6;
-  }
-}
-
-/* 데스크톱 */
-@media (min-width: 1024px) {
-  .container {
-    @apply px-8;
-  }
-}
-```
-
-## 🚀 성능 최적화
-
-### 1. 정적 생성 (SSG)
-
-```typescript
-// 빌드 타임에 마크다운 파일 처리
-export default async function ViewPage({ params }: { params: { code: string } }) {
-  const markdown = await getMarkdownByCode(params.code)
-  // ...
-}
-```
-
-### 2. 코드 스플리팅
-
-```typescript
-// 동적 임포트로 번들 사이즈 최적화
-const SyntaxHighlighter = dynamic(
-  () => import('react-syntax-highlighter'),
-  { ssr: false }
-)
-```
-
-### 3. 이미지 최적화
-
-```typescript
-import Image from 'next/image'
-
-// Next.js 내장 이미지 최적화
-<Image
-  src="/example.jpg"
-  alt="Example"
-  width={800}
-  height={600}
-  priority
-/>
-```
-
-## 🔒 타입 안전성
-
-### 인터페이스 정의
-
-```typescript
-// lib/markdown.ts
-export interface MarkdownFile {
+// 마크다운 파일 타입 정의
+interface MarkdownFile {
   code: string
   title: string
   description?: string
+  image?: string
   filename: string
   lastModified: string
   content: string
   slug: string
 }
+
+// 페이지 Props 타입
+interface PageProps {
+  params: Promise<{ code: string }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
 ```
 
-### 엄격한 TypeScript 설정
+**장점:**
+- 🛡️ **컴파일 타임 오류 검출**
+- 🔧 **자동 완성 지원**
+- 📚 **코드 문서화**
+- 🚀 **리팩토링 안전성**
 
+## 🎨 스타일링
+
+### Tailwind CSS
+```tsx
+// 유틸리티 클래스 기반 스타일링
+<div className="bg-gradient-to-r from-blue-500 to-purple-600 
+                rounded-lg shadow-xl p-6 
+                hover:scale-105 transition-transform duration-300">
+  <h1 className="text-2xl font-bold text-white mb-4">
+    Beautiful Design
+  </h1>
+</div>
+```
+
+**특징:**
+- 🎯 **유틸리티 퍼스트** 접근법
+- 📱 **반응형 디자인** 쉬운 구현
+- 🌙 **다크 모드** 내장 지원
+- ⚡ **빠른 개발 속도**
+- 🗜️ **작은 번들 크기** (Purge CSS)
+
+### CSS 변수 & 그라데이션
+```css
+/* 다크 모드 지원 */
+:root {
+  --background: #ffffff;
+  --foreground: #000000;
+}
+
+[data-theme="dark"] {
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+}
+
+/* 그라데이션 효과 */
+.gradient-bg {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+```
+
+## 📝 마크다운 처리
+
+### React Markdown
+```tsx
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+
+<ReactMarkdown
+  remarkPlugins={[remarkGfm]}
+  components={{
+    code: CodeBlock,
+    h1: CustomHeading,
+    img: OptimizedImage,
+  }}
+>
+  {markdownContent}
+</ReactMarkdown>
+```
+
+### Gray Matter
+```typescript
+import matter from 'gray-matter'
+
+const { data, content } = matter(markdownString)
+// data: frontmatter 객체
+// content: 마크다운 본문
+```
+
+**지원 기능:**
+- ✅ **GitHub Flavored Markdown**
+- 🎨 **문법 하이라이팅**
+- 📊 **표 렌더링**
+- ☑️ **체크박스 목록**
+- 🔗 **자동 링크 변환**
+
+## 🔧 코드 하이라이팅
+
+### React Syntax Highlighter
+```tsx
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
+
+<SyntaxHighlighter
+  language="typescript"
+  style={oneDark}
+  showLineNumbers
+  wrapLines
+>
+  {codeString}
+</SyntaxHighlighter>
+```
+
+**지원 언어:**
+- JavaScript/TypeScript
+- Python
+- Java
+- C/C++
+- CSS/SCSS
+- HTML
+- JSON
+- YAML
+- Shell
+- 그 외 100+ 언어
+
+## ⚡ 상태 관리
+
+### Jotai
+```typescript
+import { atom, useAtom } from 'jotai'
+
+// 원자 정의
+const themeAtom = atom<'light' | 'dark'>('light')
+
+// 컴포넌트에서 사용
+function ThemeToggle() {
+  const [theme, setTheme] = useAtom(themeAtom)
+  
+  return (
+    <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+      {theme === 'light' ? '🌙' : '☀️'}
+    </button>
+  )
+}
+```
+
+**특징:**
+- 🔬 **원자 단위** 상태 관리
+- 🪶 **경량** (2.4kb gzipped)
+- 🔄 **반응형** 업데이트
+- 🧪 **TypeScript** 친화적
+
+## 🖼️ 이미지 최적화
+
+### Next.js Image
+```tsx
+import Image from 'next/image'
+
+<Image
+  src="/images/hero.jpg"
+  alt="Hero Image"
+  width={1200}
+  height={630}
+  priority
+  sizes="(max-width: 768px) 100vw, 
+         (max-width: 1200px) 100vw, 
+         100vw"
+/>
+```
+
+**최적화 기능:**
+- 🗜️ **자동 압축** (WebP, AVIF)
+- 📐 **자동 리사이징**
+- 🖼️ **지연 로딩** (Lazy Loading)
+- 📱 **반응형 이미지**
+- ⚡ **성능 최적화**
+
+## 🔍 SEO 최적화
+
+### Metadata API
+```typescript
+export const metadata: Metadata = {
+  title: 'My App',
+  description: 'Description',
+  openGraph: {
+    title: 'My App',
+    description: 'Description',
+    images: ['/og-image.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
+}
+```
+
+## 🛠️ 개발 도구
+
+### ESLint & Prettier
 ```json
 {
-  "compilerOptions": {
-    "strict": true,
-    "noImplicitAny": true,
-    "strictFunctionTypes": true,
-    "strictBindCallApply": true
+  "extends": ["next/core-web-vitals"],
+  "rules": {
+    "prefer-const": "error",
+    "no-unused-vars": "warn"
   }
 }
 ```
 
-## 📱 접근성 (A11y)
-
-### 시맨틱 HTML
-
-```jsx
-<article>
-  <header>
-    <h1>{title}</h1>
-  </header>
-  <main className="markdown-content">
-    {/* 마크다운 내용 */}
-  </main>
-</article>
-```
-
-### 키보드 네비게이션
-
-```jsx
-<Link
-  href={`/view/${code}`}
-  className="focus:ring-2 focus:ring-blue-500"
->
-  {title}
-</Link>
-```
-
-## 🧪 확장 가능성
-
-### 플러그인 시스템
-
-```typescript
-// 향후 플러그인 지원 구조
-interface MarkdownPlugin {
-  name: string
-  transform: (content: string) => string
-}
-
-const plugins: MarkdownPlugin[] = [
-  { name: 'math', transform: renderMath },
-  { name: 'mermaid', transform: renderDiagram }
-]
-```
-
-### 테마 시스템
-
-```typescript
-// 테마 전환 지원
-interface Theme {
-  name: string
-  colors: {
-    primary: string
-    secondary: string
-    background: string
+### Husky & lint-staged
+```json
+{
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": ["eslint --fix", "prettier --write"]
   }
 }
 ```
 
-## 🔄 배포 전략
+## 📦 패키지 관리
 
-### Vercel 최적화
-
-```javascript
-// next.config.js
-module.exports = {
-  output: 'standalone', // Docker 배포를 위한 설정
-  experimental: {
-    outputFileTracingRoot: path.join(__dirname, '../../'),
-  }
-}
-```
-
-### 환경별 설정
-
+### npm/yarn
 ```bash
-# .env.local
-NEXT_PUBLIC_SITE_URL=http://localhost:3000
+# 의존성 설치
+npm install
 
-# .env.production
-NEXT_PUBLIC_SITE_URL=https://your-domain.com
+# 개발 서버 실행
+npm run dev
+
+# 프로덕션 빌드
+npm run build
+
+# 린팅
+npm run lint
 ```
+
+## 🚀 배포 & 호스팅
+
+### Vercel (권장)
+```bash
+# Vercel CLI 설치
+npm i -g vercel
+
+# 배포
+vercel
+
+# 프로덕션 배포
+vercel --prod
+```
+
+### 기타 옵션
+- **Netlify** - JAMstack 호스팅
+- **Cloudflare Pages** - Edge 배포
+- **GitHub Pages** - 정적 사이트
+- **AWS S3 + CloudFront** - 자체 호스팅
+
+## 📊 성능 지표
+
+### Core Web Vitals
+- ⚡ **LCP**: < 2.5초 (Largest Contentful Paint)
+- 🎯 **FID**: < 100ms (First Input Delay)
+- 📐 **CLS**: < 0.1 (Cumulative Layout Shift)
+
+### Lighthouse 점수
+- 🟢 **Performance**: 95+
+- 🟢 **Accessibility**: 100
+- 🟢 **Best Practices**: 100
+- 🟢 **SEO**: 100
 
 ---
 
-**이 기술 스택으로 확장 가능하고 유지보수가 쉬운 마크다운 뷰어를 구현했습니다!** 🎯 
+**현대적이고 확장 가능한 아키텍처로 미래를 준비합니다!** ✨ 

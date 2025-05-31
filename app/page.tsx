@@ -1,6 +1,41 @@
 import Link from 'next/link'
 import { getMarkdownFiles } from '@/lib/markdown'
 import ThemeToggle from '@/components/ThemeToggle'
+import { Metadata } from 'next'
+import Image from 'next/image'
+
+export const metadata: Metadata = {
+  title: 'Markdown Viewer | 마크다운 문서 뷰어',
+  description: '마크다운 파일을 아름다운 웹페이지로 읽어보세요. 간편하고 직관적인 마크다운 문서 뷰어입니다.',
+  openGraph: {
+    title: 'Markdown Viewer | 마크다운 문서 뷰어',
+    description: '마크다운 파일을 아름다운 웹페이지로 읽어보세요. 간편하고 직관적인 마크다운 문서 뷰어입니다.',
+    type: 'website',
+    images: [
+      {
+        url: '/images/md-viewer.png',
+        width: 1200,
+        height: 630,
+        alt: 'Markdown Viewer',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Markdown Viewer | 마크다운 문서 뷰어',
+    description: '마크다운 파일을 아름다운 웹페이지로 읽어보세요.',
+  },
+  keywords: [
+    'markdown',
+    'viewer',
+    'documentation',
+    '마크다운',
+    '뷰어',
+    '문서',
+    'markdown viewer',
+    'document reader',
+  ],
+}
 
 export default async function HomePage() {
   const markdownFiles = await getMarkdownFiles()
@@ -49,9 +84,20 @@ export default async function HomePage() {
                   <div className="p-4 sm:p-5 md:p-6">
                     {/* 아이콘과 제목 */}
                     <div className="flex items-start gap-2 sm:gap-3 mb-3 sm:mb-4">
-                      <div className={`w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-lg bg-gradient-to-r ${gradient} flex items-center justify-center text-white font-bold text-sm sm:text-base md:text-lg shadow-lg`}>
-                        📄
+                      {file.image?
+                      <div className={`rounded-lg w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 shadow-lg relative`}>
+                      <Image
+                      src={file.image}
+                      alt={file.title}
+                      width={32}
+                      height={32}
+                      className={`w-full h-full object-cover rounded-lg`}
+                      />
                       </div>
+                      :
+                      <div className={`w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-lg bg-gradient-to-r ${gradient} flex items-center justify-center text-white font-bold text-sm sm:text-base md:text-lg shadow-lg relative`}>
+                        📄
+                      </div>}
                       <div className="flex-1 min-w-0">
                         <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
                           {file.title}

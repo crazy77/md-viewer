@@ -6,10 +6,66 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import { getMarkdownByCode } from '@/lib/markdown'
 import ThemeToggle from '@/components/ThemeToggle'
+import { Metadata } from 'next'
+import Image from 'next/image'
 
 interface PageProps {
   params: Promise<{ code: string }>
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
+
+// 동적 메타데이터 생성
+export async function generateMetadata({ params }: { params: Promise<{ code: string }> }): Promise<Metadata> {
+  const { code } = await params
+  const markdown = await getMarkdownByCode(code)
+  
+  if (!markdown) {
+    return {
+      title: '페이지를 찾을 수 없습니다 | Markdown Viewer',
+      description: '요청하신 마크다운 문서를 찾을 수 없습니다.',
+    }
+  }
+
+  const title = `${markdown.title} | Markdown Viewer`
+  const description = markdown.description || `${markdown.title}에 대한 마크다운 문서입니다.`
+  
+  // 이미지가 있으면 소셜 이미지로 사용, 없으면 기본 이미지 사용
+  const ogImage = markdown.image ? {
+    url: markdown.image,
+    width: 1200,
+    height: 630,
+    alt: markdown.title,
+  } : {
+    url: '/images/md-viewer.png',
+    width: 1200,
+    height: 630,
+    alt: markdown.title,
+  }
+  
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'article',
+      images: [ogImage],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: markdown.image ? [markdown.image] : undefined,
+    },
+    keywords: [
+      'markdown',
+      'documentation',
+      '마크다운',
+      '문서',
+      markdown.title,
+      ...(markdown.code ? [markdown.code] : []),
+    ],
+  }
 }
 
 export default async function ViewPage({ params, searchParams }: PageProps) {
@@ -62,26 +118,25 @@ export default async function ViewPage({ params, searchParams }: PageProps) {
           <div className={`bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white ${
             noHeader ? 'p-3 sm:p-4' : 'p-4 sm:p-6 md:p-8'
           }`}>
-            {/* no-header 모드일 때는 우상단에 테마 토글과 홈 링크 추가 */}
             
             <div className="flex justify-between items-center">
-            <h1 className={`font-bold ${
-              noHeader 
-                ? 'text-lg sm:text-xl md:text-2xl mb-2' 
-                : 'text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-3 md:mb-4'
-            }`}>
-              {markdown.title}
-            </h1>
-            {noHeader && (
-              <>
-                <div className="flex items-center gap-2">
-                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-white/20 text-white">
-                    {markdown.code}
-                  </span>
-                  <ThemeToggle />
-                </div>
-              </>
-            )}
+              <h1 className={`font-bold ${
+                noHeader 
+                  ? 'text-lg sm:text-xl md:text-2xl mb-2' 
+                  : 'text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-3 md:mb-4'
+              }`}>
+                {markdown.title}
+              </h1>
+              {noHeader && (
+                <>
+                  <div className="flex items-center gap-2">
+                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-white/20 text-white">
+                      {markdown.code}
+                    </span>
+                    <ThemeToggle />
+                  </div>
+                </>
+              )}
             </div>
             
             {markdown.description && !noHeader && (
@@ -113,6 +168,23 @@ export default async function ViewPage({ params, searchParams }: PageProps) {
               </div>
             )}
           </div>
+
+          {/* 히어로 이미지 - frontmatter에 이미지가 있을 경우 표시 */}
+          {markdown.image && (
+            <div className="relative">
+              <div className="relative w-full h-48 sm:h-64 md:h-80 lg:h-96 overflow-hidden">
+                <Image
+                  src={markdown.image}
+                  alt={markdown.title}
+                  fill
+                  className="object-cover"
+                  priority
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+              </div>
+            </div>
+          )}
 
           {/* 문서 내용 */}
           <div className={`markdown-content ${

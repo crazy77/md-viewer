@@ -1,0 +1,45 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 배경 그라데이션 -->
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f093fb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f5576c;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 배경 -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <!-- 장식 도형들 -->
+  <circle cx="200" cy="150" r="60" fill="rgba(255,255,255,0.1)"/>
+  <circle cx="1000" cy="100" r="80" fill="rgba(255,255,255,0.05)"/>
+  <circle cx="1100" cy="500" r="100" fill="rgba(255,255,255,0.08)"/>
+  
+  <!-- 메인 텍스트 -->
+  <text x="600" y="280" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="48" font-weight="bold">
+    📚 Markdown Viewer
+  </text>
+  
+  <!-- 서브 텍스트 -->
+  <text x="600" y="340" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-family="Arial, sans-serif" font-size="24">
+    주요 기능 소개
+  </text>
+  
+  <!-- 장식 선 -->
+  <rect x="400" y="380" width="400" height="4" fill="url(#accent)" rx="2"/>
+  
+  <!-- 아이콘들 -->
+  <text x="450" y="480" text-anchor="middle" font-size="40">🎨</text>
+  <text x="550" y="480" text-anchor="middle" font-size="40">⚡</text>
+  <text x="650" y="480" text-anchor="middle" font-size="40">📱</text>
+  <text x="750" y="480" text-anchor="middle" font-size="40">🛡️</text>
+  
+  <!-- 하단 텍스트 -->
+  <text x="600" y="550" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-family="Arial, sans-serif" font-size="16">
+    Beautiful • Fast • Responsive • TypeScript
+  </text>
+</svg> 
