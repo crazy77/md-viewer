@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { Providers } from '@/app/providers'
 
 export const metadata: Metadata = {
   title: 'Markdown Viewer',
@@ -12,8 +13,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="ko">
-      <body className="bg-gray-50 text-gray-900">{children}</body>
+    <html lang="ko" suppressHydrationWarning>
+      <body suppressHydrationWarning>
+        <Providers>
+          {children}
+        </Providers>
+      </body>
     </html>
   )
 } 

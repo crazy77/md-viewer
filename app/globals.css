@@ -10,26 +10,90 @@
   
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    @apply bg-gradient-to-br from-slate-50 to-blue-50;
+    @apply bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-800;
+    @apply text-gray-900 dark:text-gray-100;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+/* 모바일 최적화를 위한 반응형 컨테이너 */
+@layer utilities {
+  .mobile-optimized {
+    @apply px-3 sm:px-4 md:px-6 lg:px-8;
+  }
+  
+  .mobile-spacing {
+    @apply py-4 sm:py-6 md:py-8 lg:py-12;
+  }
+  
+  .mobile-text {
+    @apply text-sm sm:text-base;
+  }
+  
+  .mobile-title {
+    @apply text-2xl sm:text-3xl md:text-4xl;
+  }
+  
+  .mobile-card-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8;
   }
 }
 
 /* 마크다운 스타일 커스터마이징 */
 @layer components {
   .markdown-content {
-    @apply prose prose-gray max-w-none;
+    @apply prose prose-gray dark:prose-invert max-w-none;
     line-height: 1.7;
+  }
+  
+  /* 모바일에서 마크다운 컨텐츠 최적화 */
+  @media (max-width: 640px) {
+    .markdown-content {
+      @apply text-sm leading-relaxed;
+    }
+    
+    .markdown-content h1 {
+      @apply text-2xl mb-4;
+    }
+    
+    .markdown-content h2 {
+      @apply text-xl mb-3 mt-6;
+    }
+    
+    .markdown-content h3 {
+      @apply text-lg mb-2 mt-4;
+    }
+    
+    .markdown-content p {
+      @apply mb-4;
+    }
+    
+    .markdown-content pre {
+      @apply text-xs;
+    }
+    
+    .markdown-content blockquote {
+      @apply my-4 p-4;
+    }
+    
+    .markdown-content table {
+      @apply text-xs;
+    }
   }
   
   /* 헤딩 스타일 */
   .markdown-content h1 {
-    @apply text-4xl font-bold mb-8 pb-4;
+    @apply text-4xl sm:text-3xl md:text-4xl font-bold mb-8 sm:mb-6 md:mb-8 pb-4;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     border-bottom: 3px solid #e2e8f0;
     position: relative;
+  }
+  
+  .dark .markdown-content h1 {
+    border-bottom-color: #374151;
   }
   
   .markdown-content h1::after {
@@ -44,8 +108,9 @@
   }
   
   .markdown-content h2 {
-    @apply text-2xl font-semibold mb-6 mt-10 relative;
+    @apply text-2xl sm:text-xl md:text-2xl font-semibold mb-6 sm:mb-4 md:mb-6 mt-10 sm:mt-6 md:mt-10 relative;
     color: #2563eb;
+    @apply dark:text-blue-400;
     padding-left: 1rem;
   }
   
@@ -57,12 +122,14 @@
     bottom: 0;
     width: 4px;
     background: linear-gradient(180deg, #3b82f6, #1d4ed8);
+    @apply dark:from-blue-400 dark:to-blue-600;
     border-radius: 2px;
   }
   
   .markdown-content h3 {
-    @apply text-xl font-medium mb-4 mt-8;
+    @apply text-xl sm:text-lg md:text-xl font-medium mb-4 sm:mb-3 md:mb-4 mt-8 sm:mt-6 md:mt-8;
     color: #059669;
+    @apply dark:text-emerald-400;
     display: flex;
     align-items: center;
   }
@@ -70,45 +137,54 @@
   .markdown-content h3::before {
     content: '▶';
     color: #10b981;
+    @apply dark:text-emerald-400;
     margin-right: 0.5rem;
     font-size: 0.8em;
   }
   
   .markdown-content h4 {
-    @apply text-lg font-medium mb-3 mt-6;
+    @apply text-lg sm:text-base md:text-lg font-medium mb-3 sm:mb-2 md:mb-3 mt-6 sm:mt-4 md:mt-6;
     color: #7c3aed;
+    @apply dark:text-violet-400;
   }
   
   /* 인라인 코드 */
   .markdown-content code:not(pre code) {
-    @apply px-2 py-1 rounded-md text-sm font-mono;
+    @apply px-2 py-1 rounded-md text-sm sm:text-xs md:text-sm font-mono whitespace-pre-wrap;
     background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    @apply dark:from-yellow-900/50 dark:to-yellow-800/50;
     color: #92400e;
+    @apply dark:text-yellow-200;
     border: 1px solid #f59e0b;
+    @apply dark:border-yellow-700;
     box-shadow: 0 1px 2px rgba(245, 158, 11, 0.2);
   }
   
   /* 코드 블록 */
   .markdown-content pre {
-    @apply rounded-xl overflow-hidden shadow-2xl mb-6;
+    @apply rounded-xl overflow-hidden shadow-2xl mb-6 sm:mb-4 md:mb-6;
     background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
     border: 1px solid #334155;
+    @apply dark:border-gray-600;
   }
   
   .markdown-content pre code {
-    @apply p-6 block text-sm;
+    @apply p-1 sm:p-4 md:p-6 block text-xs md:text-sm whitespace-pre-wrap;
     color: #e2e8f0;
     font-family: 'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
   }
   
   /* 인용문 */
   .markdown-content blockquote {
-    @apply my-6 p-6 rounded-r-lg relative;
+    @apply my-6 sm:my-4 md:my-6 p-6 sm:p-4 md:p-6 rounded-r-lg relative;
     background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    @apply dark:from-blue-900/30 dark:to-blue-800/30;
     border-left: 6px solid #3b82f6;
+    @apply dark:border-blue-400;
     border-top: 1px solid #93c5fd;
     border-bottom: 1px solid #93c5fd;
     border-right: 1px solid #93c5fd;
+    @apply dark:border-t-blue-700 dark:border-b-blue-700 dark:border-r-blue-700;
     box-shadow: 0 4px 6px rgba(59, 130, 246, 0.1);
   }
   
@@ -119,6 +195,7 @@
     left: 20px;
     font-size: 3rem;
     color: #3b82f6;
+    @apply dark:text-blue-400;
     font-weight: bold;
     opacity: 0.3;
   }
@@ -126,39 +203,43 @@
   .markdown-content blockquote p {
     @apply mb-0 italic;
     color: #1e40af;
+    @apply dark:text-blue-300;
     font-weight: 500;
   }
   
   /* 리스트 스타일 */
   .markdown-content ul {
-    @apply space-y-2;
+    @apply space-y-2 sm:space-y-1 md:space-y-2;
   }
   
   .markdown-content ul > li {
-    @apply relative pl-8;
+    @apply relative pl-8 sm:pl-6 md:pl-8;
   }
   
   .markdown-content ul > li::before {
     content: '●';
     position: absolute;
     left: 1rem;
+    @apply sm:left-3 md:left-4;
     color: #3b82f6;
+    @apply dark:text-blue-400;
     font-weight: bold;
   }
   
   .markdown-content ol {
-    @apply space-y-2;
+    @apply space-y-2 sm:space-y-1 md:space-y-2;
   }
   
   .markdown-content ol > li {
-    @apply relative pl-8;
+    @apply relative pl-8 sm:pl-6 md:pl-8;
   }
   
   /* 체크박스 스타일 */
   .markdown-content input[type="checkbox"] {
-    @apply w-5 h-5 rounded border-2 border-blue-300 mr-3;
+    @apply w-5 h-5 sm:w-4 sm:h-4 md:w-5 md:h-5 rounded border-2 border-blue-300 dark:border-blue-600 mr-3 sm:mr-2 md:mr-3;
     appearance: none;
     background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    @apply dark:from-blue-900/50 dark:to-blue-800/50;
     position: relative;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -166,7 +247,9 @@
   
   .markdown-content input[type="checkbox"]:checked {
     background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    @apply dark:from-blue-500 dark:to-blue-700;
     border-color: #1d4ed8;
+    @apply dark:border-blue-400;
   }
   
   .markdown-content input[type="checkbox"]:checked::after {
@@ -178,41 +261,47 @@
     color: white;
     font-weight: bold;
     font-size: 0.75rem;
+    @apply sm:text-xs md:text-sm;
   }
   
   /* 표 스타일 */
   .markdown-content table {
-    @apply w-full border-collapse rounded-lg overflow-hidden shadow-lg mb-8;
+    @apply w-full border-collapse rounded-lg overflow-hidden shadow-lg mb-8 sm:mb-6 md:mb-8 text-sm sm:text-xs md:text-sm;
     background: white;
+    @apply dark:bg-gray-800;
   }
   
   .markdown-content thead {
     background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    @apply dark:from-blue-600 dark:to-blue-800;
   }
   
   .markdown-content thead th {
-    @apply px-6 py-4 text-left font-semibold text-white;
+    @apply px-6 sm:px-3 md:px-6 py-4 sm:py-2 md:py-4 text-left font-semibold text-white;
     border: none;
   }
   
   .markdown-content tbody tr {
-    @apply border-b border-gray-200 transition-colors duration-200;
+    @apply border-b border-gray-200 dark:border-gray-700 transition-colors duration-200;
   }
   
   .markdown-content tbody tr:hover {
     background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    @apply dark:from-gray-700/50 dark:to-gray-600/50;
   }
   
   .markdown-content tbody tr:nth-child(even) {
     background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+    @apply dark:from-gray-800/50 dark:to-gray-700/50;
   }
   
   .markdown-content tbody tr:nth-child(even):hover {
     background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+    @apply dark:from-gray-600/50 dark:to-gray-500/50;
   }
   
   .markdown-content tbody td {
-    @apply px-6 py-4 text-gray-700;
+    @apply px-6 sm:px-3 md:px-6 py-4 sm:py-2 md:py-4 text-gray-700 dark:text-gray-300;
     border: none;
   }
   
@@ -220,6 +309,7 @@
   .markdown-content a {
     @apply relative inline-block font-medium transition-all duration-300;
     color: #3b82f6;
+    @apply dark:text-blue-400;
     text-decoration: none;
   }
   
@@ -231,11 +321,13 @@
     bottom: -2px;
     left: 0;
     background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    @apply dark:from-blue-400 dark:to-blue-600;
     transition: width 0.3s ease;
   }
   
   .markdown-content a:hover {
     color: #1d4ed8;
+    @apply dark:text-blue-300;
     transform: translateY(-1px);
   }
   
@@ -245,22 +337,26 @@
   
   /* 수평선 */
   .markdown-content hr {
-    @apply my-12 border-0 h-px;
+    @apply my-12 sm:my-8 md:my-12 border-0 h-px;
     background: linear-gradient(135deg, transparent 0%, #3b82f6 50%, transparent 100%);
+    @apply dark:from-transparent dark:via-blue-400 dark:to-transparent;
   }
   
   /* 강조 텍스트 */
   .markdown-content strong {
     @apply font-bold;
     background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    @apply dark:from-yellow-900/50 dark:to-yellow-800/50;
     padding: 0.125rem 0.25rem;
     border-radius: 0.25rem;
     color: #92400e;
+    @apply dark:text-yellow-200;
   }
   
   .markdown-content em {
     @apply italic;
     color: #7c3aed;
+    @apply dark:text-violet-400;
     font-weight: 500;
   }
   
@@ -268,56 +364,70 @@
   .markdown-content del {
     @apply line-through;
     color: #ef4444;
+    @apply dark:text-red-400;
     background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+    @apply dark:from-red-900/50 dark:to-red-800/50;
     padding: 0.125rem 0.25rem;
     border-radius: 0.25rem;
   }
   
   /* 단락 */
   .markdown-content p {
-    @apply mb-6 leading-relaxed;
+    @apply mb-6 sm:mb-4 md:mb-6 leading-relaxed;
     color: #374151;
+    @apply dark:text-gray-300;
   }
   
   /* 이미지 */
   .markdown-content img {
     @apply rounded-lg shadow-lg mx-auto;
     border: 3px solid white;
+    @apply dark:border-gray-700;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    @apply dark:shadow-gray-900/50;
     transition: transform 0.3s ease;
   }
   
   .markdown-content img:hover {
     transform: scale(1.02);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    @apply dark:shadow-gray-900/70;
   }
   
   /* 특별한 박스 스타일 (경고, 정보 등) */
   .markdown-content .info-box {
-    @apply p-6 rounded-lg mb-6 border-l-4;
+    @apply p-6 sm:p-4 md:p-6 rounded-lg mb-6 sm:mb-4 md:mb-6 border-l-4;
     background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    @apply dark:from-blue-900/30 dark:to-blue-800/30;
     border-left-color: #3b82f6;
+    @apply dark:border-l-blue-400;
     box-shadow: 0 4px 6px rgba(59, 130, 246, 0.1);
   }
   
   .markdown-content .warning-box {
-    @apply p-6 rounded-lg mb-6 border-l-4;
+    @apply p-6 sm:p-4 md:p-6 rounded-lg mb-6 sm:mb-4 md:mb-6 border-l-4;
     background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    @apply dark:from-yellow-900/30 dark:to-yellow-800/30;
     border-left-color: #f59e0b;
+    @apply dark:border-l-yellow-400;
     box-shadow: 0 4px 6px rgba(245, 158, 11, 0.1);
   }
   
   .markdown-content .error-box {
-    @apply p-6 rounded-lg mb-6 border-l-4;
+    @apply p-6 sm:p-4 md:p-6 rounded-lg mb-6 sm:mb-4 md:mb-6 border-l-4;
     background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+    @apply dark:from-red-900/30 dark:to-red-800/30;
     border-left-color: #ef4444;
+    @apply dark:border-l-red-400;
     box-shadow: 0 4px 6px rgba(239, 68, 68, 0.1);
   }
   
   .markdown-content .success-box {
-    @apply p-6 rounded-lg mb-6 border-l-4;
+    @apply p-6 sm:p-4 md:p-6 rounded-lg mb-6 sm:mb-4 md:mb-6 border-l-4;
     background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    @apply dark:from-green-900/30 dark:to-green-800/30;
     border-left-color: #10b981;
+    @apply dark:border-l-green-400;
     box-shadow: 0 4px 6px rgba(16, 185, 129, 0.1);
   }
 } 
