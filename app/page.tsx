@@ -69,7 +69,15 @@ export default async function HomePage() {
                 마크다운 파일을 선택해서 아름다운 웹페이지로 읽어보세요 ✨
               </p>
             </div>
-            <ThemeToggle />
+            <div className="flex items-center gap-4">
+              <Link
+                href="/create"
+                className="px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-lg transition-all duration-200 text-sm font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center gap-2"
+              >
+                ✍️ <span className="hidden sm:inline">새 문서 만들기</span><span className="sm:hidden">새 문서</span>
+              </Link>
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </header>
@@ -174,10 +182,16 @@ export default async function HomePage() {
                 아직 마크다운 파일이 없습니다
               </div>
               <p className="text-gray-500 dark:text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">
-                <code className="bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50 px-2 sm:px-3 py-1 rounded-lg font-mono text-xs sm:text-sm">content</code> 폴더에 마크다운 파일을 추가해보세요
+                첫 번째 마크다운 문서를 만들어보세요!
               </p>
-              <div className="text-xs sm:text-sm text-gray-400 dark:text-gray-500">
-                ✨ 파일을 추가하면 자동으로 여기에 나타납니다
+              <Link
+                href="/create"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-lg transition-all duration-200 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              >
+                ✍️ 첫 문서 만들기
+              </Link>
+              <div className="text-xs sm:text-sm text-gray-400 dark:text-gray-500 mt-4">
+                ✨ 웹에서 바로 작성하고 저장할 수 있습니다
               </div>
             </div>
           </div>
