@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { getMarkdownFiles } from '@/lib/markdown'
 import ThemeToggle from '@/components/ThemeToggle'
+import DeleteButton from '@/components/DeleteButton'
 import { Metadata } from 'next'
 import Image from 'next/image'
 
@@ -154,8 +155,19 @@ export default async function HomePage() {
                         href={`/view/${file.code}`}
                         className={`flex-1 px-3 py-2 bg-gradient-to-r ${gradient} text-white text-xs sm:text-sm font-medium rounded-lg hover:opacity-90 transition-all duration-200 text-center`}
                       >
-                        📖 전체 보기
+                        📖 보기
                       </Link>
+                      <Link
+                        href={`/edit/${file.code}`}
+                        className="px-3 py-2 bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-300 text-xs sm:text-sm font-medium rounded-lg hover:bg-orange-200 dark:hover:bg-orange-800 transition-all duration-200"
+                        title="수정하기"
+                      >
+                        ✏️
+                      </Link>
+                      <DeleteButton 
+                        code={file.code} 
+                        title={file.title}
+                      />
                       <Link
                         href={`/view/${file.code}?no-header=true`}
                         className="px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs sm:text-sm font-medium rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-200"

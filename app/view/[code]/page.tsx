@@ -112,6 +112,12 @@ export default async function ViewPage({ params, searchParams }: PageProps) {
                 </span>
               </Link>
               <div className="flex items-center gap-2 sm:gap-3">
+                <Link
+                  href={`/edit/${markdown.code}`}
+                  className="px-3 py-1.5 bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-300 text-xs sm:text-sm font-medium rounded-lg hover:bg-orange-200 dark:hover:bg-orange-800 transition-all duration-200 flex items-center gap-1"
+                >
+                  ✏️ <span className="hidden sm:inline">수정</span>
+                </Link>
                 <div className="flex items-center gap-1 sm:gap-2">
                   <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">코드:</span>
                   <span className="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium bg-gradient-to-r from-purple-400 to-purple-600 text-white shadow-sm">
